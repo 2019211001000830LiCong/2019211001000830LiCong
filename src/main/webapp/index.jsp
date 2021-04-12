@@ -6,20 +6,18 @@
 </head>
 <body>
 <%@include file="header.jsp"%>
-This is my JSP page<br>
+<h2>Welcome to my online shop page</h2> <br>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
-<br/>
-<a href="life">Life Cycle Servlet-week3</a>
-<br/>
-<a href="register">register Servlet-week3</a>
-<br/>
-<a href="config">config Servlet-week4</a>
-<br/>
-<a href="login">login-week5</a>
-<br/>
-<a href="index">include-week5</a>
-<br/>
+<form method="get" target="_blank" action="search">
+    <!-- <url-pattern>/search</url-parttern>-->
+    <input type="text" name="txt" size=30/>
+    <select name="search">
+        <option value="baidu">Baidu</option>
+        <option value="bing">Bing</option>
+        <option value="google">Google</option>
+    </select>
+    <input type="submit" value="Search"/>
+</form>
 <%@include file="footer.jsp"%>
 </body>
 </html>
