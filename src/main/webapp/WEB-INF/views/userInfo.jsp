@@ -26,5 +26,8 @@
         <td><%=user.getGender()%></td>
         <td><%=user.getBirthday()%></td>
     </tr>
+    <tr>
+        <a href="updateUser"> Update User</a>
+    </tr>
 </table>
 <%@include file="footer.jsp"%>
