@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.LiCong.model.User" %><%--
   Created by IntelliJ IDEA.
   User: 85821
   Date: 2021/4/11
