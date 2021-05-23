@@ -1,5 +1,7 @@
 <%@include file="../header.jsp" %>
-
+<%@taglib prefix="c" uri="http:/ /java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix= "Tmt" uri="http:/ /java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix= "Tmt" uri="http:/ /java.sun.com/jsp/jstl/functions"%>
 <section id="cart_items">
 		<div class="container">
 		<div class="breadcrumbs">
@@ -44,26 +46,32 @@
 					
 						<tr>
 							<td class="cart_product">
-								<a href=""><img src="" 
+								<a href=""><img src="<%=basePath%>getImgid=${p.productId}"
 								style="border: 1px solid #F7F7F0; height: 100px;width: 80px;"/></a>
 							</td>
 							<td class="cart_description">
-								<h4>productName </h4>
-								<p>Web ID: productId</p>
+								<h4>${p.productName} </h4>
+								<p>Web ID: ${p.productId}</p>
 							</td>
 								<td class="cart_price">
 								<p>price</p>
 							</td>
+							<%
+								com . LiCong.model. Product p=(com.LiCong.model.Product)pageContext.findAttribute("p");
+								int pid=p.getProductId;
+								java.sql.Connection con=(java.sql.Connection)application.getAttribute(" can");
+								String catName=com.LiCong. .model.category.jindBycategoryId(con, pic) ;
+							%>
 						
-							<td class="cart_quantity">CategoryID</td>
+							<td class="cart_quantity"><%=catName%></td>
 							
 							<td class="cart_total">
-								<p class="cart_total_price"> productDescription</p>
+								<p class="cart_total_price"> ${p.productDescription}</p>
 							</td>
 							<td class="">
-							<a class="cart_quantity_delete" href="<%=basePath%>admin/productEdit?productId=1" >
+							<a class="cart_quantity_delete" href="<%=basePath%>admin/productEdit?productId=${p.productId}" >
 							<i class="fa fa-edit">Edit</i></a>&nbsp;
-							<a class="cart_quantity_delete" href="<%=basePath%>admin/productDelete?productId=1">
+							<a class="cart_quantity_delete" href="<%=basePath%>admin/productDelete?productId=${p.productId}">
 							<i class="fa fa-times">Delete</i></a>
 							</td>
 							</tr>

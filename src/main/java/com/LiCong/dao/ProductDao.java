@@ -2,12 +2,10 @@ package com.LiCong.dao;
 
 import com.LiCong.model.Category;
 import com.LiCong.model.Product;
+import javafx.beans.binding.Bindings;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -175,22 +173,17 @@ public class ProductDao implements  IProductDao {
 
     @Override
     public List<Product> getPicture(Integer productId, Connection con) throws SQLException {
-        List<Product> productsList=new ArrayList<Product>();
-
-        String sql="select * from productable where productId=?";
-        PreparedStatement preparedStatement=con.prepareStatement(sql);
-        preparedStatement.setString(1,productId);
-        ResultSet rs=preparedStatement.executeQuery();
-        Product product=new Product();
-        while(rs.next()) {
-            product.setProductId(rs.getInt("id"));
-            product.setProductname(rs.getString("username"));
-            product.setPrice(rs.getString("password"));
-            product.setProductDescription(rs.getString("email"));
-            product.setPicture(rs.getString("gender"));
-            product.setCategoryId(rs.getDate("birthday"));
-            productsList.add(product);
-        }
-        return productsList;
-    }
+       return  null;}
+       public byte[] getPictureById(Integer productId,Connection con) throws SQLException {
+           byte[] imgByte=null;
+           String sql= "select picture from product where productId=?";
+           PreparedStatement pt=con.prepareStatement(sql);
+           pt.setInt(  1 , productId) ;
+           ResultSet rs=pt.executeQuery();
+           while (rs.next()){
+               Blob blob=rs.getBlob(  "picture ");
+               imgByte=blob.getBytes( 1,(int)blob.length());
+           }
+           return imgByte;
+       }
 }
