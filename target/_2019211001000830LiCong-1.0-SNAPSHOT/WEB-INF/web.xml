@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-        <servlet>
+        <!--<servlet>
             <servlet-name>HelloServlet</servlet-name>
             <servlet-class>com.LiCong.week2.HelloServlet</servlet-class>
         </servlet>
@@ -11,11 +11,11 @@
         <servlet-name>LifeCycleServlet</servlet-name>
         <servlet-class>com.LiCong.week3.LifeCycleServlet</servlet-class>
     </servlet>
-    <!--<servlet>
+    <servlet>
         <servlet-name>Register</servlet-name>
         <servlet-class>com.LiCong.week3.RegisterServlet</servlet-class>
     </servlet>-->
-    <servlet>
+    <!--<servlet>
         <servlet-name>JDBCServlet</servlet-name>
         <servlet-class>com.LiCong.week4.JDBCServlet</servlet-class>
         <init-param>
@@ -47,13 +47,13 @@
             <param-name>studentid</param-name>
             <param-value>2019211001000830</param-value>
         </init-param>
-    </servlet>
+    </servlet>-->
     
 
    <!-- <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/register</url-pattern>
-    </servlet-mapping>-->
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LifeCycleServlet</servlet-name>
         <url-pattern>/life</url-pattern>
@@ -69,5 +69,33 @@
     <servlet-mapping>
         <servlet-name>ConfigServlet</servlet-name>
         <url-pattern>/config</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
+    <context-param>
+        <param-name>url</param-name>
+        <param-value>jdbc:mysql://localhost:3306/homework?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC</param-value>
+    </context-param>
+    <context-param>
+        <param-name>driver</param-name>
+        <param-value>com.mysql.cj.jdbc.Driver</param-value>
+    </context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>root</param-value>
+    </context-param>
+    <welcome-file-list>
+        <welcome-file>home</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>LicongFilter</filter-name>
+        <filter-class>com.lab2.LiCongFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LicongFilter</filter-name>
+        <url-pattern>/lab2/welcome.jsp</url-pattern>
+    </filter-mapping>
+
 </web-app>

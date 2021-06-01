@@ -24,7 +24,7 @@ public interface IProductDao {
 	 *	Update a product by productId
 	 * @return int
 	 */
-	public int update(Product instance, Connection con) throws SQLException;
+	//public int update(Product instance, Connection con) throws SQLException;
 	/**
 	 *	Select a product by productId
 	 * @return Product model

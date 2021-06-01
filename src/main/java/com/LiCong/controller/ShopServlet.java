@@ -18,23 +18,24 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Category category=new Category();
-        List<Category> categoryList=category .findAlICategory(con);
-        request. setAttribute(  "categoryList", categoryList);
+        List<Category> categoryList=category.findAllCategory(con);
+        request.setAttribute("categoryList",categoryList);
+
         ProductDao productDao=new ProductDao();
         List<Product> productList=null;
-        try{
-            if(request.getParameter("categoryId")==null){
-                productList=productlao.findAll(con);
+        try {
+            if(request.getParameter("categoryId")==null) {
+                productList=productDao.findAll(con);
             }else {
-                int categoryId=Integer. parseInt (request . getParameter(  "categoryId"));
-                productList=productDao . findByCategoryId((categoryId, con);
+                int categoryId=Integer.parseInt(request.getParameter("categoryId"));
+                productList=productDao.findByCategoryId(categoryId,con);
             }
-        }catch (SQLException throwables){
+
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         request.setAttribute("productList",productList);
-        String path="/WEB-INF/views/shop.jsp";
-        request.getRequestDispatcher(path).forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/views/shop.jsp").forward(request,response);
     }
 
     @Override

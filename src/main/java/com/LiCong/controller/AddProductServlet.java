@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 @MultipartConfig(maxFileSize = 16177215)
 public class AddProductServlet extends HttpServlet {
     private Connection con = null;
-    private static final Logger log = Logger.getLogger(AddProductServlet.class);
+    private static final Logger log = Logger.getLogger(String.valueOf(AddProductServlet.class));
 
     @Override
     public void destroy() {
@@ -37,34 +37,32 @@ public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productname = request.getParameter("productname");
+        String productName = request.getParameter("productName");
         Double price = request.getParameter("price") != null ? Double.parseDouble(request.getParameter("price")) : 0.0;
         int categoryId = request.getParameter("categoryId") != null ? Integer.parseInt(request.getParameter("categoryId")) : 0;
-        String producctDescription = request.getParameter("producctDescription");
+        String productDescription = request.getParameter("productDescription");
         InputStream inputStream = null;
-        Part filepart = request.getPart("picture");
-        if (filepart != null) {
-            System.out.println("file name :" + filepart.getName() + "  size" + filepart.getSize() + "  file type" + filepart.getContentType());
-            inputStream = filepart.getInputStream();
-
+        Part filePart = request.getPart("picture");
+        if (filePart != null) {
+            System.out.println("file name :" + filePart.getName() + " size" + filePart.getSize() + "file type" + filePart.getContentType());
+            inputStream = filePart.getInputStream();
         }
         Product product = new Product();
-        product.setProductname(productname);
-        ;
+        product.setProductName(productName);
         product.setPrice(price);
-        product.setProductDescription(producctDescription);
+        product.setProductDescription(productDescription);
         product.setCategoryId(categoryId);
-
+        product.setPicture(String.valueOf(inputStream));
 
         ProductDao dao = new ProductDao();
         int i = 0;
         try {
-            i = dao.save(product, inputStream, con);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            i = dao.save(product, con);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         if (i > 0) {
-            response.sendRedirect("ProductList");//next calss
+
         }
     }
 }
