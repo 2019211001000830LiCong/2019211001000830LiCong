@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<%--
+<%
 if(request.getParameter("username").equals("admin") && request.getParameter("password").equals("admin")){
     String url="welcome.jsp?username="+request.getParameter("username");
     response.sendRedirect(url);
@@ -21,24 +21,24 @@ if(request.getParameter("username").equals("admin") && request.getParameter("pas
     request.setAttribute("message","Username Password Error");
     request.getRequestDispatcher("login.jsp").include(request,response);
 }
---%>
+%>
 <%--todo 2: use c:choose ,c:when c:otherwise to validate username is 'admin' and  password is 'admin'--%>
-<c:choose>
-    <c:when test="${param.username.equals('admin')}">
+c:choose
+    c:when
         <%--todo 3: when username == admin use c:url and c:param to make url = "welcome.jsp?username=admin"--%>
-        <c:url var="url" value="welcome.jsp">
-            <c:param name="username" value="admin"/>
-        </c:url>
+         c:url
+            c:param
+        /c:url
         <%-- todo 4.use c:redirect to url= welcome.jsp?username=admin--%>
-        <c:redirect url="${url}"/>
-    </c:when>
+        c:redirect
+    /c:when
     <%-- todo 5. use c:otherwise --%>
-    <c:otherwise>
-        <%-- todo 6:use c:set to set a attribute name message="username password error" in request  --%>
-        <c:set var="message" value="username password error" scope="request"/>
-        <%--todo 7:use c:import to include login.jsp --%>
-        <c:import url="login.jsp"/>
-    </c:otherwise>
-</c:choose>
+c:otherwise
+    <%-- todo 6:use c:set to set a attribute name message="username password error" in request  --%>
+    c:set
+    <%--todo 7:use c:import to include login.jsp --%>
+    c:import
+/c:otherwise
+    /c:choose
 </body>
 </html>
