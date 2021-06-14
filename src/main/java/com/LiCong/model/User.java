@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String gender;
     private Date birthday;
+    private Date birthDate;
 
     public User() {
     }
@@ -80,5 +81,9 @@ public class User {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }

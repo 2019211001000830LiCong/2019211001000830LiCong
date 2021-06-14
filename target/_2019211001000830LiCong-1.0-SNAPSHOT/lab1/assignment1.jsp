@@ -62,13 +62,18 @@ personList.add(new Person("Mike",new Dog("kitty")));
 // todo 6 : add a new person into PersonList - person name and dog name
 request.setAttribute("AllPerson",personList);
 %>
-<c:forEach var="item" items="${AllPerson }">
-    <c:out value="${item }"/><br/>
-</c:forEach>
 <%--//todo 7: use c:forEach to print person name :   and persons' dog name : --%>
+<c:forEach var="p" items="${requestScope.AllPerson}">
+    <c:out value="${p.name}"/>&nbsp;
+    <c:out value="${p.dog.name}"/><br>
+</c:forEach>
 <%
     String str="one:two:three-four-five";
 %>
+<%--todo 8 : use c:forToken to print all words --%>
+<c:forTokens items="<%=str%>" delims=": -" var="num">
+    <c:out value="${num}"/><br>
+</c:forTokens>
 <%--todo 8 : use c:forToken to print all words --%>
 </body>
 </html>

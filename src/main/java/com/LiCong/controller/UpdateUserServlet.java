@@ -16,7 +16,6 @@ import java.util.logging.SimpleFormatter;
 
 @WebServlet(name = "UpdateUserServlet", value = "/updateUser")
 public class UpdateUserServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("WEB-INF/views/updateUser.jsp").forward(request,response);
@@ -24,34 +23,37 @@ public class UpdateUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SimpleDateFormat formatter=new SimpleDateFormat();
-        Connection con=null;
-        User u=new User();
-        UserDao userDao=new UserDao();
-        String username=request.getParameter("username");
-       int id=Integer.parseInt(request.getParameter("id"));
+        int Id= Integer.parseInt(request.getParameter("Id"));
+        String Username=request.getParameter("Username");
         String password=request.getParameter("password");
-        String email=request.getParameter("email");
-        String gender=request.getParameter("gender");
-        String date=request.getParameter("birthdate");
-        Date birthdate= null;
+        String Email=request.getParameter("Email");
+        String Gender=request.getParameter("Gender");
         try {
-            birthdate = formatter.parse(date);
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date Date=sdf.parse(request.getParameter("Date"));
+            User user=new User();
+            user.setId(Id);
+            user.setUsername(Username);
+            user.setPassword(password);
+            user.setEmail(Email);
+            user.setGender(Gender);
+            user.setBirthDate(Date);
+            UserDao userDao=new UserDao();
+            Connection con = (Connection) getServletContext().getAttribute("con");
+            try {
+                if(userDao.updateUser(con,user)!=0) {
+                    User user1=userDao.findByUsernamePassword(con,Username,password);
+                    HttpSession session=request.getSession();
+                    session.setMaxInactiveInterval(10);
+                    session.setAttribute("user",user1);
+                    request.getRequestDispatcher("accountDetails").forward(request, response);
+                }
+            } catch (SQLException throwable) {
+                throwable.printStackTrace();
+            }
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        u.setUsername(username);
-        u.setId(id);
-        u.setPassword(password);
-        u.setEmail(email);
-        u.setGender(gender);
-        u.setBirthday(birthdate);
-        try {
-            userDao.updateUser(con,u);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        request.getRequestDispatcher("WEB-INF/views/userInfo.jsp").forward(request,response);
     }
 }
